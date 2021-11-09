@@ -84,15 +84,15 @@ ENV MARIADB_VERSION $MARIADB_VERSION
 # (https://downloads.mariadb.org/mariadb/+releases/)
 
 # Allowing overriding of REPOSITORY, a URL that includes suite and component for testing and Enterprise Versions
-ARG REPOSITORY="http://archive.mariadb.org/mariadb-10.3.32/repo/ubuntu/ focal main"
+#ARG REPOSITORY="http://archive.mariadb.org/mariadb-10.3.32/repo/ubuntu/ focal main"
 
-RUN set -e;\
-	echo "deb ${REPOSITORY}" > /etc/apt/sources.list.d/mariadb.list; \
-	{ \
-		echo 'Package: *'; \
-		echo 'Pin: release o=MariaDB'; \
-		echo 'Pin-Priority: 999'; \
-	} > /etc/apt/preferences.d/mariadb
+#RUN set -e;\
+#	echo "deb ${REPOSITORY}" > /etc/apt/sources.list.d/mariadb.list; \
+#	{ \
+#		echo 'Package: *'; \
+#		echo 'Pin: release o=MariaDB'; \
+#		echo 'Pin-Priority: 999'; \
+#	} > /etc/apt/preferences.d/mariadb
 # add repository pinning to make sure dependencies from this MariaDB repo are preferred over Debian dependencies
 #  libmariadbclient18 : Depends: libmysqlclient18 (= 5.5.42+maria-1~wheezy) but 5.5.43-0+deb7u1 is to be installed
 
@@ -105,7 +105,7 @@ RUN set -ex; \
 	} | debconf-set-selections; \
 	apt-get update; \
 	apt-get install -y \
-		"mariadb-server=$MARIADB_VERSION" \
+		"mariadb-server" \
 # mariadb-backup is installed at the same time so that `mysql-common` is only installed once from just mariadb repos
 		mariadb-backup \
 		socat \
